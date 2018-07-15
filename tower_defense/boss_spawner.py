@@ -11,7 +11,7 @@ from tower_defense.game_object import *
 class BossSpawner(GameObject):
     def __init__(self,x,y):
         GameObject.__init__(self,0,200)
-        self.frame_counter = FrameCounter(80)
+        self.frame_counter = FrameCounter(120)
 
     def update(self):
         GameObject.update(self)

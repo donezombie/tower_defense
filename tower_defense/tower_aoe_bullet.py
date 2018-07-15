@@ -105,8 +105,7 @@ class TowerBulletAOE(GameObject):
             self.vectorX = self.e_x - self.x
             self.vectorY =  self.e_y - self.y
             if self.length(self.vectorX, self.vectorY) < 6:
-                self.velocityX = 0
-                self.velocityY = 0
+                self.is_active = False
             else:
                 self.velocityX = self.vectorX/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
                 self.velocityY = self.vectorY/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
