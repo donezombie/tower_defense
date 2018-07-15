@@ -1,4 +1,4 @@
-from tower_defense.tower_bullet import *
+from tower_defense.towershotgun_bullet import *
 from tower_defense.game_object import *
 from tower_defense.game_object import GameObject
 from frame_counter import *
@@ -8,7 +8,7 @@ from physics.tower_circle import *
 from renderers.animation import Animation
 from img_animation import *
 import pygame
-class Tower(GameObject) :
+class TowerShotgun(GameObject) :
     def __init__(self,x,y):
         GameObject.__init__(self,x,y-20)
         self.frame_counter = FrameCounter(30)
@@ -19,7 +19,7 @@ class Tower(GameObject) :
         self.range = 0
         self.enemy_x =  tower_defense.game_object.get_position_from_main[0]
         self.enemy_y =  tower_defense.game_object.get_position_from_main[1]
-        self.renderer = Animation(list_tower,loop=True,frame_delay=30)
+        self.renderer = Animation(list_tower_shotgun,loop=True,frame_delay=30)
 
     def update(self):
         GameObject.update(self)
@@ -29,7 +29,7 @@ class Tower(GameObject) :
         # print(tower_defense.game_object.hasEnemy)
         if tower_defense.game_object.hasEnemy == True:
             if self.shoot_lock == False:
-                bullet = TowerBullet(self.x,self.y,e_x,e_y)
+                bullet = TowerBulletShotgun(self.x,self.y,e_x,e_y)
                 add(bullet)
                 # bullet = TowerBullet()
                 self.shoot_lock = True
@@ -42,7 +42,7 @@ class Tower(GameObject) :
 
     def check(self):
         for game_object in game_objects:
-            if (type(game_object) == Enemy and game_object.is_active):
+            if (type(game_object) == Enemy or type(game_object) == Boss) and game_object.is_active:
                 self.range = ((self.x - game_object.x)**2 + (self.y - game_object.y)**2)**0.5
                 if self.range <= radius:
                     self.shoot(game_object.x,game_object.y)

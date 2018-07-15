@@ -6,6 +6,7 @@ class Hole(GameObject):
         GameObject.__init__(self,x,y)
         self.builded = False
         self.box_collider = BoxCollider(70, 70)
+        self.renderer = ImageRenderer("images/hole.png")
     
     def deactivate(self):
         self.is_active = False

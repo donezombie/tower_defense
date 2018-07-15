@@ -13,10 +13,21 @@ class Boss(GameObject) :
         self.sec_move = False
         self.renderer = Animation(list_boss,loop = True,frame_delay=1)
         self.HP = 5
+        self.stun = False
+        self.stunCooldown = 20
 
     def update(self):
         GameObject.update(self)
-        self.enemy_move(5)
+        
+        if self.stun:
+            self.renderer = Animation(boss_stun,loop=True,frame_delay=1)
+            self.stunCooldown -= 1
+            if self.stunCooldown == 0:
+                self.renderer = Animation(list_boss,loop=True,frame_delay=1)
+                self.stun = False
+                self.stunCooldown = 20
+        if not self.stun:
+            self.enemy_move(5)
         self.deactivate_if_need()
     def deactivate(self):
         self.is_active = False

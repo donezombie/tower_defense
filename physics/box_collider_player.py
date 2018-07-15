@@ -10,14 +10,14 @@ class BoxColliderPlayer(GameObject):
 
         RED = (255,0,0)
         rect = (self.x-self.width/2,self.y-self.height/2+40,self.width,self.height)
-        pygame.draw.rect(canvas,RED,rect,1)
+        pygame.draw.rect(canvas,RED,rect,-1)
 
     def corners(self):
         return (
             self.x - self.width/2,
             self.x + self.width/2,
-            self.y - self.height/2,
-            self.y + self.height/2+40,
+            self.y - self.height/2+40,
+            self.y + self.height/2,
 
         )
     def overlap(self,other):

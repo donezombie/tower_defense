@@ -42,7 +42,7 @@ class Tower(GameObject) :
 
     def check(self):
         for game_object in game_objects:
-            if (type(game_object) == Enemy and game_object.is_active):
+            if ((type(game_object) == Enemy or type(game_object) == Boss) and game_object.is_active):
                 self.range = ((self.x - game_object.x)**2 + (self.y - game_object.y)**2)**0.5
                 if self.range <= radius:
                     self.shoot(game_object.x,game_object.y)

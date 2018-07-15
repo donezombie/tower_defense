@@ -5,10 +5,16 @@ from tower_defense.game_object import collide_with,add as add_game_object
 from tower_defense.enemy import *
 from tower_defense.boss import *
 from renderers.animation import Animation
+from renderers.image_renderer import *
 from tower_defense.enemy_explosion import EnemyExplosion
 from tower_defense.game_object import *
 from quick_math import *
 from img_animation import list_bullet
+import pygame
+
+pygame.mixer.init()
+effect = pygame.mixer.Sound('music/icetower.wav')
+
 class TowerBullet(GameObject):
     def __init__(self,x,y,e_x,e_y):
         GameObject.__init__(self,x,y)
@@ -23,33 +29,41 @@ class TowerBullet(GameObject):
         self.velocityX = 0
         self.velocityY = 0
         
-
     def pyshicsWithEnemy(self):
         try:
             collide_list = collide_with(self.box_collider)
             for game_object in collide_list:
-                if type(game_object) == Enemy and game_object.is_active:
-                    # explosion = EnemyExplosion(game_object.x, game_object.y)
-                    # add_game_object(explosion)
-                    # game_object.deactivate()
-                    game_object.stun = True
-                    self.deactivate()
-                    tower_defense.game_object.game_objects.remove(self)
-                    collide_list.remove(self)
-                    # tower_defense.game_object.coin += 1
+                if type(game_object) == Enemy:
+                    if game_object.is_active:
+                        # explosion = EnemyExplosion(game_object.x, game_object.y)
+                        # add_game_object(explosion)
+                        # game_object.deactivate()
+                        effect.play()
+                        game_object.stun = True
+                        self.deactivate()
+                        collide_list.remove(self)
+                        # tower_defense.game_object.game_objects.remove(game_object)
+                        # tower_defense.game_object.game_objects.remove(self)
+                        # game_object.isDeath = True
+                        # tower_defense.game_object.score += 3
+                        # tower_defense.game_object.coin += 5
+                    else:
+                        self.deactivate()
 
                 if type(game_object) == Boss and game_object.is_active:
-                    game_object.HP -= 1
-                    if game_object.HP <= 0:
-                        explosion = EnemyExplosion(game_object.x, game_object.y)
-                        add_game_object(explosion)
-                        game_object.deactivate()
+                        game_object.stun = True
+                        effect.play()
                         self.deactivate()
-                        tower_defense.game_object.game_objects.remove(game_object)
-                        tower_defense.game_object.game_objects.remove(self)
-                        collide_list.remove(game_object)
                         collide_list.remove(self)
-                        tower_defense.game_object.coin += 2
+                        # explosion = EnemyExplosion(game_object.x, game_object.y)
+                        # add_game_object(explosion)
+                        # game_object.deactivate()
+                        # self.deactivate()
+                        # tower_defense.game_object.game_objects.remove(game_object)
+                        # tower_defense.game_object.game_objects.remove(self)
+                        # collide_list.remove(game_object)
+                        # collide_list.remove(self)
+                        # tower_defense.game_object.coin += 10
 
         except ValueError:
             pass
@@ -82,14 +96,15 @@ class TowerBullet(GameObject):
         try:
             self.vectorX = self.e_x - self.x
             self.vectorY =  self.e_y - self.y
-            self.velocityX = self.vectorX/((self.vectorX**2 + self.vectorY**2)**(1/2))*5
-            self.velocityY = self.vectorY/((self.vectorX**2 + self.vectorY**2)**(1/2))*5
+            self.velocityX = self.vectorX/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
+            self.velocityY = self.vectorY/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
         except ZeroDivisionError:
             pass
         
         
 
     def update(self):
+        # print(self.velocityX, self.vectorY)
         GameObject.update(self)
         self.pyshicsWithEnemy()
         self.move()
@@ -99,6 +114,8 @@ class TowerBullet(GameObject):
         if self.cooldown <= 0:
             self.deactivate()
             self.cooldown = 80
+        if self.x == self.e_x and self.y == self.e_y:
+            self.deactivate()
 
     def clear(self):
         self.velocity = (0, 0)

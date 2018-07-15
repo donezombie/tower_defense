@@ -1,6 +1,10 @@
 hasEnemy = False
 build_stt = False
-coin = 100
+hp_castle = 5
+coin = 40
+score = 0
+wave = 30
+
 import pygame
 class GameObject:
     def __init__(self,x,y):

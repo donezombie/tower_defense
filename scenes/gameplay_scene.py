@@ -5,18 +5,19 @@ from tower_defense.castle import Castle
 from tower_defense.hole import Hole
 import tower_defense.game_object
 from tower_defense.boss_spawner import *
+import pygame
 class GamePlayScene:
     def __init__(self):
-        pass
+        pygame.mixer.init()
+        pygame.mixer.music.load('music/background.wav')
+        pygame.mixer.music.play(-1)
     def setup(self):
-        player = Player(400,400)
-        add(player)
+        
         enemy_spawner = EnemySpawner(0,0)
         add(enemy_spawner)
         enemy_spawner2 = BossSpawner(0,0)
-        # add(enemy_spawner2)
-        castle = Castle(120,700)
-        add(castle)
+        add(enemy_spawner2)
+        
         hole1 = Hole(370,20)
         add(hole1)
         hole1 = Hole(370,90)
@@ -155,6 +156,11 @@ class GamePlayScene:
         add(hole1)
         hole1 = Hole(20, 20)
         add(hole1)
+        
+        player = Player(400,400)
+        add(player)
+        castle = Castle(120,700)
+        add(castle)
 
     def destroy(self):
         clear()
