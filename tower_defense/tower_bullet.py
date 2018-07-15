@@ -11,6 +11,7 @@ from tower_defense.game_object import *
 from quick_math import *
 from img_animation import list_bullet
 import pygame
+import math
 
 pygame.mixer.init()
 effect = pygame.mixer.Sound('music/icetower.wav')
@@ -96,10 +97,18 @@ class TowerBullet(GameObject):
         try:
             self.vectorX = self.e_x - self.x
             self.vectorY =  self.e_y - self.y
-            self.velocityX = self.vectorX/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
-            self.velocityY = self.vectorY/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
+            if self.length(self.vectorX, self.vectorY) < 6:
+                self.velocityX = 0
+                self.velocityY = 0
+            else:
+                self.velocityX = self.vectorX/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
+                self.velocityY = self.vectorY/((self.vectorX**2 + self.vectorY**2)**(1/2))*10
         except ZeroDivisionError:
             pass
+        
+    
+    def length(self, x, y):
+        return math.sqrt(x * x + y * y)
         
         
 
