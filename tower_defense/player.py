@@ -54,10 +54,14 @@ class Player(GameObject):
             self.dy+=5
         if global_input_manager.x_pressed:
             tower_defense.game_object.build_stt = True
+            tower_defense.game_object.hasTower = True
         if global_input_manager.c_pressed:
             tower_defense.game_object.build_stt = True
+            tower_defense.game_object.hasTower = True
         if global_input_manager.z_pressed:
             tower_defense.game_object.build_stt = True
+            tower_defense.game_object.hasTower = True
+
 
         self.x += self.dx
         self.y += self.dy

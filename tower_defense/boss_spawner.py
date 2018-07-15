@@ -16,25 +16,30 @@ class BossSpawner(GameObject):
     def update(self):
         GameObject.update(self)
         self.frame_counter.run()
-        if self.frame_counter.flag:
-            tower_defense.game_object.hasEnemy = True
-            if tower_defense.game_object.score <60:
-                boss = Boss(425,0)
-                add(boss)
-            elif tower_defense.game_object.score >= 60 and tower_defense.game_object.score < 65:
-                self.frame_counter = FrameCounter(80)
-                boss = Boss(425,0)
-                boss.HP = 7
-                add(boss)
-            elif tower_defense.game_object.score >= 120 and tower_defense.game_object.score < 130:
-                self.frame_counter = FrameCounter(50)
-                boss = Boss(425,0)
-                boss.HP = 13
-                add(boss)
-            else:
-                self.frame_counter = FrameCounter(120)
-                boss = Boss(425,0)
-                boss.HP = 50
-                # boss.renderer = Animation(,loop=True,frame_delay=1)
-                add(boss)
-            self.frame_counter.reset()
+        if tower_defense.game_object.hasTower == True:
+            if self.frame_counter.flag:
+                tower_defense.game_object.hasEnemy = True
+                if tower_defense.game_object.score <60:
+                    pass
+                elif tower_defense.game_object.score >= 60 and tower_defense.game_object.score < 65:
+                    self.frame_counter = FrameCounter(80)
+                    boss = Boss(425,0)
+                    boss.HP = 7
+                    add(boss)
+                elif tower_defense.game_object.score >= 120 and tower_defense.game_object.score < 130:
+                    self.frame_counter = FrameCounter(50)
+                    boss = Boss(425,0)
+                    boss.HP = 13
+                    add(boss)
+                elif tower_defense.game_object.score <=130:
+                    self.frame_counter = FrameCounter(80)
+                    boss = Boss(425,0)
+                    boss.HP = 20
+                    add(boss)
+                elif tower_defense.game_object.score >=210:
+                    self.frame_counter = FrameCounter(80)
+                    boss = Boss(425,0)
+                    boss.HP = 100
+                    # boss.renderer = Animation(list_super_boss,loop=True,frame_delay=1)
+                    add(boss)
+                self.frame_counter.reset()

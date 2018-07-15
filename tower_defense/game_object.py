@@ -4,6 +4,7 @@ hp_castle = 5
 coin = 40
 score = 0
 wave = 30
+hasTower = False
 
 import pygame
 class GameObject:

@@ -48,7 +48,7 @@ class TowerBulletAOE(GameObject):
                         tower_defense.game_object.game_objects.remove(self)
                         game_object.isDeath = True             
                         tower_defense.game_object.score += 1
-                        tower_defense.game_object.coin += 1
+                        tower_defense.game_object.coin += 2
                     else:
                         self.deactivate()
 

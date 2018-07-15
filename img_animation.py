@@ -79,4 +79,7 @@ bossdie = ["images/bossdie/1.png",
             "images/bossdie/5.png",]
 boss_stun = ["images/bossdie/stun.png"]
 
+list_super_boss = ["images/boss/bossboss1.png",
+"images/boss/bossboss2.png",
+"images/boss/bossboss3.png",]
                

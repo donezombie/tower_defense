@@ -51,7 +51,7 @@ class TowerBulletShotgun(GameObject):
                         tower_defense.game_object.game_objects.remove(self)
                         game_object.isDeath = True             
                         tower_defense.game_object.score += 1
-                        tower_defense.game_object.coin += 1
+                        tower_defense.game_object.coin += 2
 
                 if type(game_object) == Boss and game_object.is_active:
                     effect = pygame.mixer.Sound('music/greentower.wav')

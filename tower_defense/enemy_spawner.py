@@ -14,11 +14,12 @@ class EnemySpawner(GameObject):
     def update(self):
         GameObject.update(self)
         self.frame_counter.run()
-        if self.frame_counter.flag:
-            tower_defense.game_object.hasEnemy = True
-            enemy = Enemy(425,0)
-            add(enemy)
-            self.frame_counter.reset()
-        if tower_defense.game_object.score >= 60 and tower_defense.game_object.score < 65:
-            self.frame_counter = FrameCounter(15)
+        if tower_defense.game_object.hasTower == True:
+            if self.frame_counter.flag:
+                tower_defense.game_object.hasEnemy = True
+                enemy = Enemy(425,0)
+                add(enemy)
+                self.frame_counter.reset()
+            if tower_defense.game_object.score >= 60 and tower_defense.game_object.score < 65:
+                self.frame_counter = FrameCounter(15)
 
